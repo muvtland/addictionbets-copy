@@ -1,4 +1,4 @@
-const SERVER_URL = process.env.REACT_APP_SERVER_URL
+const SERVER_URL = process.env.REACT_APP_SERVER_URL_RAILWAY
 
 export const myFetch = async (path, method = 'GET', token, body) => {
     try {
