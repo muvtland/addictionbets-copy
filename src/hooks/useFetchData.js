@@ -105,8 +105,9 @@ export function useFetchData() {
                 if (txHash){
                     const { transaction } = await myFetch('/transaction', 'POST', token, {type, amount, coin, txHash});
                     setTransactions((prevTransactions) => [transaction, ...prevTransactions]);
-
-                    const { user } = await myFetch('/user', 'PUT', token, { balance: amount });
+                    const { balance: currentBalance } = await myFetch('/user/balance', 'GET', token);
+                    let newBalance = type === 'deposit' ? Number(currentBalance) + Number(amount) : Number(currentBalance) - Number(amount);
+                    const { user } = await myFetch('/user', 'PUT', token, { balance: newBalance });
                     setBalance(user.balance);
                 }
 
