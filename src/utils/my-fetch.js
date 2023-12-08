@@ -1,5 +1,6 @@
-import { serverUrl } from '../config';
-
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+console.log(SERVER_URL, 'SERVER_URL')
+console.log(process.env, 'SERVER_URL')
 export const myFetch = async (path, method = 'GET', token, body) => {
     try {
         const headers = {
@@ -9,7 +10,7 @@ export const myFetch = async (path, method = 'GET', token, body) => {
             headers['Authorization'] = `Bearer ${token}`
         }
         const bodyData = body ? JSON.stringify(body) : null;
-        const response = await fetch(`${serverUrl}${path}`, {
+        const response = await fetch(`${SERVER_URL}${path}`, {
             method,
             headers,
             body: bodyData,
