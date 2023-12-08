@@ -1,0 +1,21 @@
+.modal{
+    background-color: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.8s;
+}
+
+.modal.active{
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal__content {
+    opacity: 1;
+    transform: scale(0);
+    transition: 0.4s all;
+}
+
+.modal__content.active {
+    transform: scale(1);
+}
