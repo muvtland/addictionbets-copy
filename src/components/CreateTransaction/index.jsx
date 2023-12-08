@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const CreateTransaction = ({ createTransaction }) => {
+export const CreateTransaction = ({ createTransaction, isProcessing }) => {
     const [type, setType] = useState('deposit');
     const [amount, setAmount] = useState('');
     const [error, setError] = useState('');
@@ -64,8 +64,9 @@ export const CreateTransaction = ({ createTransaction }) => {
                 </div>
                 <div className="flex">
                     <button
-                        className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[312px] hover:scale-105 duration-300'}
+                        className={`${isProcessing ? 'focus:outline-none disabled:opacity-25 bg-blue-600' : 'bg-blue-500 hover:bg-blue-700 hover:scale-105 duration-300'} text-white font-bold py-2 px-4 rounded w-[312px] `}
                         onClick={transactionHandler}
+                        disabled={isProcessing}
                     >
                         CONFIRM
                     </button>

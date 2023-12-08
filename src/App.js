@@ -11,11 +11,12 @@ function App() {
         createTransaction,
         userInfo,
         modal,
+        isProcessing
     } = useFetchData();
     return (
         <div>
             <Header login={login} userInfo={userInfo} />
-            <CreateTransaction createTransaction={createTransaction}/>
+            <CreateTransaction createTransaction={createTransaction} isProcessing={isProcessing}/>
             <Transactions transactions={transactions}/>
             <Modal active={modal.activeModal} setActive={modal.setModalActive}>
                 <p className="text-red-500 text-2xl font-bold">{modal.error}</p>

@@ -19,6 +19,7 @@ export function useFetchData() {
     const [transactions, setTransactions] = useState([]);
     const [activeModal, setModalActive] = useState(false);
     const [error, setError] = useState('');
+    const [isProcessing, setIsProcessing] = useState(false);
 
     const verify = useCallback(async () => {
         try {
@@ -94,6 +95,7 @@ export function useFetchData() {
                 const contract = new web3.eth.Contract(ABI, testNetContractAddress);
                 const value = web3.utils.toWei(amount, 'ether');
                 let txHash;
+                setIsProcessing(true);
                 if (type === 'deposit') {
                     const transaction = await contract.methods.deposit().send({from: walletAddress, value});
                     txHash = transaction.blockHash;
@@ -110,12 +112,14 @@ export function useFetchData() {
                     const { user } = await myFetch('/user', 'PUT', token, { balance: newBalance });
                     setBalance(user.balance);
                 }
-
+                setIsProcessing(false);
             } else {
+                setIsProcessing(false);
                 setError('Please connect your wallet');
                 setModalActive(true)
             }
         } catch (e) {
+            setIsProcessing(false);
             setModalActive(true);
             setError(e.message || 'something went wrong');
             console.log(e);
@@ -131,6 +135,7 @@ export function useFetchData() {
         login,
         transactions,
         createTransaction,
+        isProcessing,
         userInfo: { balance, walletAddress },
         modal: { activeModal, setModalActive, error }
     };
